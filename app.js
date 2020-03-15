@@ -19,6 +19,19 @@ var diceDom = document.querySelector(".dice");
 //шооны дүрсийг харагдаргүй болгох
 diceDom.style.display = "none";
 
+//ээлж шилжүүлэх функц
+function eelj() {
+  document.getElementById("current-" + activePlayer).textContent = 0;
+  roundScore = 0;
+  //тоглогчын ээлжийг солино
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  //идэвхийн тэмдгийг солих
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+  //шоог түр алга болгох
+  diceDom.style.display = "none";
+}
+
 //roll dice button ii eventiig hiilee
 document.querySelector(".btn-roll").addEventListener("click", function() {
   //1-6 хүртэлх санамсаргүй тоо олгох
@@ -39,33 +52,29 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
   } else {
     // шоо 1 буусан байна
 
-    // тоглогчын оноог 0 болгох
-    document.getElementById("current-" + activePlayer).textContent = 0;
-    roundScore = 0;
-    //тоглогчын ээлжийг солино
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-    //идэвхийн тэмдгийг солих
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
-    //шоог түр алга болгох
-    diceDom.style.display = "none";
+    // ээлж солих функц дуудах
+    eelj();
   }
 });
 
 // hold button ii event
 
 document.querySelector(".btn-hold").addEventListener("click", function() {
-  //энэ эвэнтээр буусан оноог нийт оноо руу нэмнэ
-  score[activePlayer] += roundScore;
-  // дэлгэцэнд оноог харуулах
-  document.getElementById("score-" + activePlayer).textContent =
-    score[activePlayer];
-  // шооны тоог тэглэх
-  roundScore = 0;
-  document.getElementById("current-" + activePlayer).textContent = 0;
-
   // ялагчийг тодруулах хэсэг
-  score[activePlayer] >=100?()
+  if (score[activePlayer] >= 100) {
+    Document.getElementById("name-" + activePlayer).textContent = "winner :)";
+    alert("laksd;jflka");
+  } else {
+    //энэ эвэнтээр буусан оноог нийт оноо руу нэмнэ
+    score[activePlayer] += roundScore;
+    // дэлгэцэнд оноог харуулах
+    document.getElementById("score-" + activePlayer).textContent =
+      score[activePlayer];
+    // шооны тоог тэглэх
+    roundScore = 0;
+    //ээлж солих фунц дуудах
+    eelj();
+  }
 });
 
 // new game ийн эвэнт
